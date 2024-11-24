@@ -81,10 +81,9 @@ func (c *Colony) processLine(line string) error {
 		if err != nil {
 			return err
 		}
-		cords := [2]int{x, y}
 
 		// Add room to colony
-		if err := c.AddRoom(name, cords); err != nil {
+		if err := c.AddRoom(name, x, y); err != nil {
 			return err
 		}
 
@@ -95,8 +94,7 @@ func (c *Colony) processLine(line string) error {
 		case "end":
 			c.End = name
 		}
-		c.currentSpecial = "" // Reset currentSpecial
-
+		c.currentSpecial = "" 
 		// Handle Tunnel Definition
 	} else if tunVal := strings.Split(line, "-"); len(tunVal) == 2 {
 		if err := c.AddTunnels(strings.TrimSpace(tunVal[0]), strings.TrimSpace(tunVal[1])); err != nil {
@@ -119,15 +117,17 @@ func parseCoordinates(xStr, yStr, name string) (int, int, error) {
 	return x, y, nil
 }
 
-func (c *Colony) AddRoom(name string, cord [2]int) error {
+func (c *Colony) AddRoom(name string, x int, y int) error {
+	cords := [2]int{x, y}
+
 	// Check if the room already exists
 	for _, room := range c.Rooms {
-		if room.Name == name || (room.Coordinates[0] == cord[0] && room.Coordinates[1] == cord[1]) {
-			return fmt.Errorf("room %s %d %d already exists! ", name, cord[0], cord[1])
+		if room.Name == name || (room.Coordinates[0] == cords[0] && room.Coordinates[1] == cords[1]) {
+			return fmt.Errorf("room %s %d %d already exists! ", name, cords[0], cords[1])
 		}
 	}
 	// Add the new room
-	c.Rooms = append(c.Rooms, &Room{Name: name, Coordinates: cord})
+	c.Rooms = append(c.Rooms, &Room{Name: name, Coordinates: cords})
 	return nil
 }
 
@@ -141,15 +141,14 @@ func (c *Colony) GetRoom(name string) *Room {
 }
 
 func (c *Colony) AddTunnels(from, to string) error {
-	sourceRoom := c.GetRoom(from)
-	destinationRoom := c.GetRoom(to)
-	if sourceRoom == nil || destinationRoom == nil {
+	if c.GetRoom(from) == nil || c.GetRoom(to) == nil {
 		return fmt.Errorf("room : %s doesent exist to link it with : %s", from, to)
 	}
+	sourceRoom := c.GetRoom(from)
+	destinationRoom := c.GetRoom(to)
 	sourceRoom.Tunnel = append(sourceRoom.Tunnel, destinationRoom)
 	destinationRoom.Tunnel = append(destinationRoom.Tunnel, sourceRoom)
 	return nil
-
 }
 
 func CheckName(name string) bool {

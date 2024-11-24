@@ -13,7 +13,7 @@ func main() {
 		log.Fatalln("Invalid arguments\nUsage : go run . <filename>")
 	}
 
-	colony := &lemin.Colony{}
+	colony := lemin.Colony{}
 	if err := colony.ParseFile(args[0]); err != nil {
 		fmt.Println("Error:", err)
 		return
