@@ -44,12 +44,14 @@ func CheckData(lines []string) error {
 
 // Check room name before add it
 func CheckName(name string) bool {
-	if name == "" || name[0] == '#' || name[0] == 'L' {
-		return false
-	}
-	for _, r := range name {
-		if unicode.IsSpace(r) {
-			return false
+	if name != "" {
+		for i, r := range name {
+			if i == 0 && (r == '#' || r == 'L') {
+				return false
+			}
+			if unicode.IsSpace(r) {
+				return false
+			}
 		}
 	}
 	return true
