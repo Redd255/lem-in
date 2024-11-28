@@ -14,9 +14,8 @@ type (
 		Ants           int
 	}
 	Room struct {
-		Name        string
-		Coordinates [2]int
-		Tunnel      []*Room
+		Name   string
+		Tunnel []*Room
 	}
 	Ant struct {
 		Id   int

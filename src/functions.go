@@ -26,12 +26,15 @@ func CheckData(lines []string) error {
 	// check start and end
 	start := 0
 	end := 0
-	for _, line := range lines {
-		line = strings.TrimSpace(line)
-		if line == "##start" {
+	for i := 0; i < len(lines); i++ {
+		line := strings.TrimSpace(lines[i])
+		if i != len(lines)-1 && line == "##start" {
 			start++
+			if i < len(lines)-1 && (lines[i+1] == "##end" || lines[i-1] == "##end") {
+				return fmt.Errorf("error asahbi")
+			}
 		}
-		if line == "##end" {
+		if i != len(lines)-1 && line == "##end" {
 			end++
 		}
 	}
@@ -57,15 +60,11 @@ func CheckName(name string) bool {
 	return true
 }
 
-// Check room coordinates before add it
-func parseCoordinates(xStr, yStr, name string) (int, int, error) {
-	x, err := strconv.Atoi(xStr)
-	if err != nil {
-		return 0, 0, fmt.Errorf("invalid x coordinate for room %s: %s", name, xStr)
+func PathContainsRoom(path []*Room, adj *Room) bool {
+	for _, room := range path {
+		if room == adj {
+			return true
+		}
 	}
-	y, err := strconv.Atoi(yStr)
-	if err != nil {
-		return 0, 0, fmt.Errorf("invalid y coordinate for room %s: %s", name, yStr)
-	}
-	return x, y, nil
+	return false
 }
