@@ -1,10 +1,8 @@
 package lemin
 
 import (
-	"errors"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -31,16 +29,16 @@ func (c *Colony) AddData(lines []string) error {
 	}
 
 	//Add the number of ants
-	c.Ants, _ = strconv.Atoi(lines[0])
+	Ants, _ = strconv.Atoi(lines[0])
 
 	//Add the rooms
 	for _, line := range lines[1:] {
 		line = strings.TrimSpace(line)
 		switch line {
 		case "##start":
-			c.currentSpecial = "start"
+			currentSpecial = "start"
 		case "##end":
-			c.currentSpecial = "end"
+			currentSpecial = "end"
 		default:
 			if err := c.ProcessLine(line); err != nil {
 				return err
@@ -68,13 +66,13 @@ func (c *Colony) ProcessLine(line string) error {
 		}
 
 		// Assign start or end based on currentSpecial
-		switch c.currentSpecial {
+		switch currentSpecial {
 		case "start":
-			c.Start = name
+			Start = name
 		case "end":
-			c.End = name
+			End = name
 		}
-		c.currentSpecial = ""
+		currentSpecial = ""
 
 		// for tunnels
 	} else if len(tunVal) == 2 {
@@ -106,8 +104,8 @@ func (c *Colony) AddTunnels(from, to string) error {
 	}
 	sourceRoom := c.GetRoom(from)
 	destinationRoom := c.GetRoom(to)
-	sourceRoom.Tunnel = append(sourceRoom.Tunnel, destinationRoom)
-	destinationRoom.Tunnel = append(destinationRoom.Tunnel, sourceRoom)
+	sourceRoom.Tunnel = append(sourceRoom.Tunnel, to)
+	destinationRoom.Tunnel = append(destinationRoom.Tunnel, from)
 	return nil
 }
 
@@ -122,29 +120,26 @@ func (c *Colony) GetRoom(name string) *Room {
 
 // Breadth-First Search (BFS) algorithm to find all paths from start to end room
 func (c *Colony) FindPaths() ([]Path, error) {
-	// start room
-	start := c.GetRoom(c.Start)
 
 	var paths []Path
-	queue := [][]*Room{{start}}
+	queue := [][]string{{Start}}
 
 	for len(queue) > 0 {
 		path := queue[0]
-		queue = queue[1:]
-		current := path[len(path)-1]
+		queue = queue[1:] // Dequeue
+		currentRoomName := path[len(path)-1]
 
-		if current.Name == c.End {
-			temp := []string{}
-			for _, room := range path {
-				temp = append(temp, room.Name)
-			}
-			paths = append(paths, Path{Path: temp})
+		if currentRoomName == End {
+			paths = append(paths, Path{Path: path})
 			continue
 		}
 
-		for _, adj := range current.Tunnel {
+		// Explore adjacent rooms (tunnels)
+		currentRoom := c.GetRoom(currentRoomName)
+		for _, adj := range currentRoom.Tunnel {
 			if !PathContainsRoom(path, adj) {
-				newPath := append([]*Room{}, path...)
+				// Avoid cycles by checking if the room is already in the path
+				newPath := append([]string{}, path...) // Create a new path
 				newPath = append(newPath, adj)
 				queue = append(queue, newPath)
 			}
@@ -152,13 +147,8 @@ func (c *Colony) FindPaths() ([]Path, error) {
 	}
 
 	if len(paths) == 0 {
-		return nil, errors.New("there is no path from start to end")
+		return nil, fmt.Errorf("there is no path from start to end")
 	}
-
-	// Sort paths by length (shortest to longest)
-	sort.Slice(paths, func(i, j int) bool {
-		return len(paths[i].Path) < len(paths[j].Path)
-	})
 
 	return paths, nil
 }

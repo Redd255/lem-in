@@ -60,9 +60,9 @@ func CheckName(name string) bool {
 	return true
 }
 
-func PathContainsRoom(path []*Room, adj *Room) bool {
+func PathContainsRoom(path []string, roomName string) bool {
 	for _, room := range path {
-		if room == adj {
+		if room == roomName {
 			return true
 		}
 	}

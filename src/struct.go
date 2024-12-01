@@ -2,20 +2,23 @@ package lemin
 
 const (
 	MaxAnts       = 100000
-	MinLineLength = 3
+	MinLineLength = 7
+)
+
+var (
+	Ants           int
+	Start          string
+	End            string
+	currentSpecial string
 )
 
 type (
 	Colony struct {
-		Rooms          []*Room
-		currentSpecial string
-		Start          string
-		End            string
-		Ants           int
+		Rooms []*Room
 	}
 	Room struct {
 		Name   string
-		Tunnel []*Room
+		Tunnel []string
 	}
 	Ant struct {
 		Id   int
@@ -26,5 +29,8 @@ type (
 	Path struct {
 		Path   []string
 		AntsIn int
+	}
+	Tunnels struct {
+		Romms [2]string
 	}
 )
