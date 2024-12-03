@@ -13,9 +13,8 @@ func CheckData(lines []string) error {
 	if len(lines) < MinLineLength {
 		return fmt.Errorf("invalid number of lines")
 	}
-
 	// check ants
-	numberOfAnts, err := strconv.Atoi(lines[0])
+	numberOfAnts, err := strconv.Atoi(strings.TrimSpace(lines[0]))
 	if err != nil {
 		return fmt.Errorf("invalid number of ants: %s", lines[0])
 	}

@@ -20,17 +20,8 @@ type (
 		Name   string
 		Tunnel []string
 	}
-	Ant struct {
-		Id   int
-		Path []string
-		Next int
-	}
-
 	Path struct {
 		Path   []string
 		AntsIn int
-	}
-	Tunnels struct {
-		Romms [2]string
 	}
 )

@@ -29,7 +29,7 @@ func (c *Colony) AddData(lines []string) error {
 	}
 
 	//Add the number of ants
-	Ants, _ = strconv.Atoi(lines[0])
+	Ants, _ = strconv.Atoi(strings.TrimSpace(lines[0]))
 
 	//Add the rooms
 	for _, line := range lines[1:] {

@@ -18,6 +18,12 @@ func main() {
 		fmt.Println("Error:", err)
 		return
 	}
-
-	
+	paths, err := colony.FindPaths()
+	if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+	for _, path := range paths {
+		fmt.Println(path)
+	}
 }
