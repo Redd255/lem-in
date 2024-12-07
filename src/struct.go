@@ -22,6 +22,5 @@ type (
 	}
 	Path struct {
 		Path   []string
-		AntsIn int
 	}
 )
