@@ -20,10 +20,10 @@ func main() {
 	}
 	paths, err := colony.FindPaths()
 	if err != nil {
-        fmt.Println("Error:", err)
-        return
-    }
-	for _, path := range paths {
-		fmt.Println(path)
+		fmt.Println("Error:", err)
+		return
 	}
+
+	filterpath:= lemin.SelectBestPaths(paths, lemin.Ants)
+	fmt.Println(filterpath)
 }
