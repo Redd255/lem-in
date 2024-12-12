@@ -22,5 +22,11 @@ type (
 	}
 	Path struct {
 		Path   []string
+		AntsIn int
+	}
+	Ant struct {
+		Id   int      
+		Path []string 
+		Next int      
 	}
 )

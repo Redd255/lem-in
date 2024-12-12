@@ -23,7 +23,7 @@ func main() {
 		fmt.Println("Error:", err)
 		return
 	}
-
+	
 	filterpath:= lemin.SelectBestPaths(paths, lemin.Ants)
-	fmt.Println(filterpath)
+	lemin.SimulateAntMovement(lemin.Ants,filterpath,lemin.End)
 }
