@@ -29,4 +29,7 @@ type (
 		Path []string 
 		Next int      
 	}
+	Tunnel struct {
+		Rooms [2]string
+	}
 )

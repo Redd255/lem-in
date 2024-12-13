@@ -5,12 +5,8 @@ import (
 	"sort"
 )
 
-type Tunnel struct {
-	Rooms [2]string
-}
 
-// SimulateAntMovement manages the movement of ants through a network of paths, ensuring no collisions
-// in rooms or tunnels. It outputs the movement of ants in a formatted string.
+
 func SimulateAntMovement(totalAnts int, paths []Path, targetRoom string) {
 	if len(paths) == 1 {
 		// Assign all ants to the single available path.
