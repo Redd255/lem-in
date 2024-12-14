@@ -5,16 +5,9 @@ import (
 	"sort"
 )
 
-
-
 func SimulateAntMovement(totalAnts int, paths []Path, targetRoom string) {
-	if len(paths) == 1 {
-		// Assign all ants to the single available path.
-		paths[0].AntsIn = totalAnts
-	} else {
-		// Distribute ants across multiple paths based on their capacities.
-		distributeAnts(paths, totalAnts)
-	}
+	// Distribute ants across multiple paths based on their capacities.
+	distributeAnts(paths, totalAnts)
 
 	// Initialize ants with their assigned paths.
 	ants := initializeAnts(totalAnts, paths)
@@ -59,6 +52,11 @@ func SimulateAntMovement(totalAnts int, paths []Path, targetRoom string) {
 
 // distributeAnts evenly allocates ants to paths based on their lengths and current loads.
 func distributeAnts(paths []Path, totalAnts int) {
+	if len(paths) == 1 {
+		// Assign all ants to the single available path.
+		paths[0].AntsIn = totalAnts
+		return
+	}
 	for ant := 1; ant <= totalAnts; ant++ {
 		// Sort paths by their weight: path length + current ant load.
 		sort.Slice(paths, func(i, j int) bool {

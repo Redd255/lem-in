@@ -7,7 +7,7 @@ func SelectBestPaths(paths []Path, totalAnts int) []Path {
 	for _, path := range paths {
 		if !pathConflicts(optimalPaths, path) && len(path.Path)-2 <= remainingAnts {
 			optimalPaths = append(optimalPaths, path)
-			remainingAnts -=  len(path.Path)-2
+			remainingAnts -= len(path.Path) - 2
 		}
 		if remainingAnts <= 0 {
 			break
@@ -33,5 +33,3 @@ func pathConflicts(existingPaths []Path, newPath Path) bool {
 
 	return false
 }
-
-
