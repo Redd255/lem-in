@@ -23,4 +23,4 @@ This project simulates the movement of ants through a network of interconnected 
 1. Clone the repository:
    ```bash
    git clone https://github.com/Redd255/lem-in.git
-   ```
+   
