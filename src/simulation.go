@@ -64,6 +64,7 @@ func distributeAnts(paths []Path, totalAnts int) {
 		})
 		// Assign the ant to the path with the smallest weight.
 		paths[0].AntsIn++
+		//fmt.Println(paths[0])
 	}
 }
 
@@ -81,6 +82,7 @@ func initializeAnts(totalAnts int, paths []Path) []Ant {
 			Path: paths[pathIndex].Path,
 			Next: 1,
 		}
+		//fmt.Println(ants[i])
 		paths[pathIndex].AntsIn--
 	}
 	return ants

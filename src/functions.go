@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-	"unicode"
 )
 
 // Check the the data before add it
@@ -46,14 +45,9 @@ func CheckData(lines []string) error {
 
 // Check room name before add it
 func CheckName(name string) bool {
-	if name != "" {
-		for i, r := range name {
-			if i == 0 && (r == '#' || r == 'L') {
-				return false
-			}
-			if unicode.IsSpace(r) {
-				return false
-			}
+	for i, r := range name {
+		if i == 0 && (r == '#' || r == 'L') {
+			return false
 		}
 	}
 	return true
