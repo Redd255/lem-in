@@ -5,6 +5,7 @@ import (
 	"sort"
 )
 
+// Simulate the movement of lemmings through the tunnels.
 func SimulateAntMovement(totalAnts int, paths []Path, targetRoom string) {
 	// Distribute ants across multiple paths based on their capacities.
 	distributeAnts(paths, totalAnts)
@@ -17,7 +18,7 @@ func SimulateAntMovement(totalAnts int, paths []Path, targetRoom string) {
 	var output string
 
 	for len(ants) > 0 {
-		usedTunnels := make(map[Tunnel]bool) // Track used tunnels to prevent simultaneous access.
+		usedTunnels := make(map[Tunnel]bool)
 		for i := 0; i < len(ants); i++ {
 			ant := ants[i]
 			currentRoom := ant.Path[ant.Next-1]
@@ -42,7 +43,7 @@ func SimulateAntMovement(totalAnts int, paths []Path, targetRoom string) {
 			// Remove the ant if it reaches the target room.
 			if nextRoom == targetRoom {
 				ants = append(ants[:i], ants[i+1:]...)
-				i-- // Adjust index after removal.
+				i--
 			}
 		}
 		output += "\n"
@@ -55,16 +56,14 @@ func distributeAnts(paths []Path, totalAnts int) {
 	if len(paths) == 1 {
 		// Assign all ants to the single available path.
 		paths[0].AntsIn = totalAnts
-		return
 	}
 	for ant := 1; ant <= totalAnts; ant++ {
 		// Sort paths by their weight: path length + current ant load.
 		sort.Slice(paths, func(i, j int) bool {
-			return len(paths[i].Path)+paths[i].AntsIn < len(paths[j].Path)+paths[j].AntsIn
+			return len(paths[i].Path)+paths[i].AntsIn <= len(paths[j].Path)+paths[j].AntsIn
 		})
 		// Assign the ant to the path with the smallest weight.
 		paths[0].AntsIn++
-		//fmt.Println(paths[0])
 	}
 }
 
@@ -72,7 +71,6 @@ func distributeAnts(paths []Path, totalAnts int) {
 func initializeAnts(totalAnts int, paths []Path) []Ant {
 	ants := make([]Ant, totalAnts)
 	pathIndex := 0
-
 	for i := 0; i < totalAnts; i++ {
 		for paths[pathIndex].AntsIn == 0 {
 			pathIndex = (pathIndex + 1) % len(paths)
@@ -82,7 +80,6 @@ func initializeAnts(totalAnts int, paths []Path) []Ant {
 			Path: paths[pathIndex].Path,
 			Next: 1,
 		}
-		//fmt.Println(ants[i])
 		paths[pathIndex].AntsIn--
 	}
 	return ants

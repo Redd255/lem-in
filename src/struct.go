@@ -1,9 +1,5 @@
 package lemin
 
-const (
-	MaxAnts       = 100000
-	MinLineLength = 6
-)
 
 var (
 	Ants           int

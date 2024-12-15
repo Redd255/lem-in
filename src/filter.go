@@ -1,5 +1,6 @@
 package lemin
 
+// select best paths
 func SelectBestPaths(paths []Path, totalAnts int) []Path {
 	var optimalPaths []Path
 	remainingAnts := totalAnts
@@ -16,6 +17,7 @@ func SelectBestPaths(paths []Path, totalAnts int) []Path {
 	return optimalPaths
 }
 
+// check if two paths conflict with each other
 func pathConflicts(existingPaths []Path, newPath Path) bool {
 	occupiedRooms := make(map[string]bool)
 

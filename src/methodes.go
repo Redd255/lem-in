@@ -123,31 +123,24 @@ func (c *Colony) FindPaths() ([]Path, error) {
 
 	var paths []Path
 	queue := [][]string{{Start}}
-	//cc := 0
 	for len(queue) > 0 {
-		//cc++
 		path := queue[0]
-		//fmt.Printf("path %v:> %v\n",cc,path)
 		queue = queue[1:]
-		//fmt.Printf("queue %v:> %v\n",cc,queue)
 		currentRoomName := path[len(path)-1]
-		//fmt.Printf("currentRoomName %v:> %v\n",cc,currentRoomName)
 
 		if currentRoomName == End {
 			paths = append(paths, Path{Path: path})
 			continue
 		}
 
-		// Explore adjacent rooms (tunnels)
 		currentRoom := c.GetRoom(currentRoomName)
-		//fmt.Printf("currentRoom %v:> %v\n\n\n",cc,currentRoom)
+		// Explore adjacent rooms (tunnels)
 		for _, adj := range currentRoom.Tunnel {
 			if !PathContainsRoom(path, adj) {
 				// Avoid cycles by checking if the room is already in the path
 				newPath := append([]string{}, path...)
 				newPath = append(newPath, adj)
 				queue = append(queue, newPath)
-				//fmt.Printf("queues %v\n",queue)
 			}
 		}
 	}
