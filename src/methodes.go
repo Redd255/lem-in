@@ -123,9 +123,9 @@ func (c *Colony) FindPaths() ([]Path, error) {
 
 	var paths []Path
 	queue := [][]string{{Start}}
-	cc := 0
+	//cc := 0
 	for len(queue) > 0 {
-		cc++
+		//cc++
 		path := queue[0]
 		//fmt.Printf("path %v:> %v\n",cc,path)
 		queue = queue[1:]
