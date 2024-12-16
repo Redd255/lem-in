@@ -11,8 +11,8 @@ func FilterPaths(paths []Path, totalAnts int) []Path {
 		remainingAnts = totalAnts
 		path1 := paths[i]
 		selectedPaths = append(selectedPaths, path1)
-		remainingAnts -=len(path1.Path) - 2 // kan9so number of rooms
-		numOfrooms += len(path1.Path) - 2 // kanzido number of rooms
+		remainingAnts -=len(path1.Path) - 2
+		numOfrooms += len(path1.Path) - 2 
 		if remainingAnts > 0 {
 			for j := i; j < len(paths); j++ {
 				if j != i {
