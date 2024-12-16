@@ -8,7 +8,12 @@ import (
 
 // Check the the data before add it
 func CheckData(lines []string) error {
-	// check start and end
+	anty:= strings.TrimSpace(lines[0])
+	anty1, err := strconv.Atoi(anty)
+	if err != nil || anty1 <= 0 {
+		return fmt.Errorf("the number of ants should be a positive integer")
+	}
+
 	start := 0
 	end := 0
 	for i := 0; i < len(lines); i++ {
@@ -22,6 +27,7 @@ func CheckData(lines []string) error {
 
 		checkCoor := strings.Split(line, " ")
 		if len(checkCoor) == 3 {
+
 			_, err := strconv.Atoi(checkCoor[1])
 			if err != nil {
 				return fmt.Errorf("there is a problem in coordinations")

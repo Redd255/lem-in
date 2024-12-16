@@ -23,6 +23,14 @@ func main() {
 		fmt.Println("Error:", err)
 		return
 	}
-	filterpath := lemin.SelectBestPaths(paths, lemin.Ants)
-	lemin.SimulateAntMovement(lemin.Ants, filterpath, lemin.End)
+	fmt.Println(paths)
+	filterpath := lemin.FilterPaths(paths, lemin.Ants)
+
+	var result [][]string
+	// Step 2: Store the Values from each Path struct into the 2D slice
+	for _, path := range filterpath {
+		result = append(result, path.Path)
+	}
+
+	lemin.Sumilation(lemin.Ants, result)
 }
