@@ -19,6 +19,8 @@ type (
 	Path struct {
 		Path   []string
 	}
-
-
+	path struct {
+		wait int
+		way  []string
+	}
 )

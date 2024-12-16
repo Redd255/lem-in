@@ -5,12 +5,6 @@ import (
 	"strings"
 )
 
-type (
-	path struct {
-		wait int
-		way  []string
-	}
-)
 
 // Moves the ants trought the given paths.
 func Sumilation(ants int, paths [][]string) {
