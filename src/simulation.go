@@ -26,11 +26,9 @@ func Sumilation(ants int, paths [][]string) {
 				curr = in
 			}
 		}
-		// fmt.Println(p1, len(x[i]))
 		for in := len(p1[curr].way); in < p1[curr].wait; in++ {
 			x[i] = append(x[i], "")
 		}
-		// fmt.Println(len(x[i]))
 		for _, v := range p1[curr].way {
 
 			x[i] = append(x[i], fmt.Sprintf("L%d-%s", i+1, v))
