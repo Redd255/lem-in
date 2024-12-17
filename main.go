@@ -23,7 +23,13 @@ func main() {
 		fmt.Println("Error:", err)
 		return
 	}
-	fmt.Println(paths)
+	// paths = []lemin.Path{
+	// 	{Path: []string{"1", "d", "3"}},
+	// 	{Path: []string{"1", "5", "3"}},
+	// 	{Path: []string{"1", "8", "5", "3"}},
+	// 	{Path: []string{"1", "7", "9", "3"}},
+	// 	{Path: []string{"1", "a", "h", "3"}},
+	// }
 	filterpath := lemin.FilterPaths(paths, lemin.Ants)
 
 	var result [][]string
